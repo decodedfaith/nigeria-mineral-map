@@ -83,3 +83,4 @@ def enhance_ui(m: folium.Map) -> folium.Map:
     m.get_root().html.add_child(folium.Element(js_with_id))
     m.get_root().html.add_child(folium.Element(TITLE_HTML))
     return m
+

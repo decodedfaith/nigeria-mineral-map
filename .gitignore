@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]  # Compiled Python
+*$py.class
+*.so  # Shared object (Cython builds)
+
+# Virtual env
+venv/
+env/
+.env
+
+# Cython extensions (auto-generated)
+*.cpython-*.so
+build/
+dist/
+
+# Outputs
+map.html
+*.gpkg  # Temp GeoPackages if not committed
+data/*.tmp  # Any temp data files
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+*.swp
