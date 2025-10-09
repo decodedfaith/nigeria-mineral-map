@@ -1,4 +1,4 @@
-markdown# Contributing to Nigeria Mineral Map
+# Contributing to Nigeria Mineral Map
 
 Thank you for considering contributing! We welcome improvements, bug fixes, new features, and documentation updates.
 
