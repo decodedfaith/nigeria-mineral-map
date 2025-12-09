@@ -1,31 +1,61 @@
 # Contributing to Nigeria Mineral Map
 
-Thank you for considering contributing! We welcome improvements, bug fixes, new features, and documentation updates.
+Thank you for your interest in contributing to the Nigeria Mineral Map project! We welcome contributions from developers, data scientists, geologists, and anyone interested in making mineral data more accessible.
 
-## Getting Started
-1. Fork the repository on GitHub.
-2. Clone your fork locally:
-git clone https://github.com/YOUR_USERNAME/nigeria-mineral-map.git
-cd nigeria-mineral-map
-text3. Create a feature branch for your work:
-git checkout -b feature/your-feature-name
-text4. Install dependencies in a virtual environment (see [README.md](README.md) for setup).
+## How to Contribute
 
-## Making Changes
-- **Code Style**: Follow [PEP 8](https://peps.python.org/pep-0008/). Use [Black](https://black.readthedocs.io/) for auto-formatting: `pip install black && black .`.
-- **Testing**: Add unit tests in a `tests/` folder (use pytest). Run with `pytest`.
-- **Geospatial Data**: If adding data, document sources in `/data/README.md` and avoid committing large files (use `.gitignore`).
-- Commit often with clear messages (e.g., "Fix map zoom on mobile").
+### Reporting Bugs
+If you find a bug, please create a new issue on GitHub. Be sure to include:
+- A clear, descriptive title
+- Steps to reproduce the issue
+- Expected vs. actual behavior
+- Screenshots (if applicable)
 
-## Submitting Changes
-1. Push your branch: `git push origin feature/your-feature-name`.
-2. Open a [Pull Request (PR)](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) on the original repo.
-- Reference any related issues (e.g., "Closes #5").
-- Explain what you changed and why.
-3. Respond to feedback in the PR discussion.
+### Suggesting Enhancements
+We love new ideas! If you have a suggestion:
+1. Check existing issues to see if it's already been proposed.
+2. Open a new issue describing your idea and why it would be valuable.
 
-## Code of Conduct
-This project follows the [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/). By participating, you agree to abide by it. Reports of abusive behavior can be emailed to [komolafefaith@gmail.com]
+### Pull Requests
+1. **Fork the repository** to your own GitHub account.
+2. **Create a new branch** for your feature or bugfix:
+   ```bash
+   git checkout -b feature/amazing-new-feature
+   ```
+3. **Make your changes** and commit them with clear, descriptive messages.
+   - Follow the existing code style (PEP 8 for Python).
+   - Ensure your code is well-documented.
+4. **Push your branch** to your fork:
+   ```bash
+   git push origin feature/amazing-new-feature
+   ```
+5. **Open a Pull Request (PR)** against the `main` branch of this repository.
+   - Describe your changes in detail.
+   - Link to any relevant issues.
 
-## Questions?
-Open an [issue](https://github.com/decodedfaith/nigeria-mineral-map/issues) or ask in discussions. Happy contributing!
+## Development Setup
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/decodedfaith/nigeria-mineral-map.git
+   cd nigeria-mineral-map
+   ```
+2. Set up a virtual environment:
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## Code Standards
+
+- **Python**: We follow [PEP 8](https://www.python.org/dev/peps/pep-0008/). Please ensure your code is readable and includes docstrings for functions and classes.
+- **Data**: Do not commit large binary files or sensitive data.
+- **Documentation**: Update `README.md` if you change how the application is built or used.
+
+## License
+
+By contributing, you agree that your contributions will be licensed under the MIT License.

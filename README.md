@@ -3,65 +3,190 @@
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-brightgreen)](https://decodedfaith.github.io/nigeria-mineral-map/)
-[![Geospatial](https://img.shields.io/badge/geospatial-Folium%20%7C%20GeoPandas-green.svg)](https://geopandas.org/)
 
-An interactive web-based map visualizing Nigeria's solid mineral resources, such as iron ore, coal, barite, and limestone. Built with Python for data processing and geospatial analysis, using sources like the Nigerian Geological Survey Agency (NGSA) datasets. The app enables users to explore mineral deposits by state, with filters for resource type and interactive UI enhancements.
+> **MVP Status**: This is a Minimum Viable Product (MVP) demonstrating statistical visualization of Nigeria's mineral licensing distribution. The current version uses hardcoded sample data for demonstration purposes. See the [Roadmap](#roadmap--future-opportunities) for planned enhancements.
+
+An interactive web-based choropleth map visualizing the distribution of mineral licenses across Nigeria's 36 states and the Federal Capital Territory. The tool provides a visual overview of Small Scale Mining Licenses (SSML), Mining Leases (ML), and Quarry Licenses (QL) by state.
 
 ## Live Demo
-Try the interactive map right now: [View on GitHub Pages](https://decodedfaith.github.io/nigeria-mineral-map/).
 
-(If the site is down for updates, see local setup below.)
+🚀 **[View Interactive Map on GitHub Pages](https://decodedfaith.github.io/nigeria-mineral-map/)**
+
+Click on any state to view detailed license statistics in an interactive popup.
 
 ## Features
-- **Data Loading & Processing**: Ingests geospatial data (e.g., shapefiles from NGSA) and processes it for visualization.
-- **Map Building**: Renders interactive maps using Folium/Leaflet.js.
-- **UI Enhancement**: Custom overlays, tooltips, and Cython-accelerated computations for performance.
-- **Export Options**: Download filtered data as CSV or GeoJSON.
+
+- **Interactive Choropleth Map**: Color-coded states based on total mineral license counts
+- **State-Level Statistics**: Click any state to view breakdown by license type (SSML, ML, QL)
+- **Hover Effects**: Visual highlighting of states on mouseover
+- **Responsive Design**: Full-screen map interface optimized for desktop viewing
+- **Geospatial Processing**: Built with Python geospatial libraries (GeoPandas, Folium)
+
+## Current MVP Implementation
+
+### Data Source
+The current version uses **static, hardcoded data** representing an approximate snapshot from Q1 2022, sourced from Nigerian Mining Cadastre Office (NMCO) records. This data is embedded in [`src/data_processor.py`](src/data_processor.py) for demonstration purposes.
+
+**Important**: This is **not** real-time data. The values are simplified for MVP demonstration and should not be used for official or commercial purposes.
+
+### Architecture
+- **Backend**: Python scripts process geospatial data and generate the map
+- **Frontend**: Static HTML file (`index.html`) with embedded Leaflet.js and GeoJSON
+- **Output**: ~16MB HTML file (large due to embedded Nigeria state boundaries GeoJSON)
 
 ## Installation
-For development or local runs:
-1. Clone the repository:
-git clone https://github.com/decodedfaith/nigeria-mineral-map.git
-cd nigeria-mineral-map
-text2. Create a virtual environment (recommended):
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-text3. Install dependencies:
-pip install -r requirements.txt
-text## Usage
-- **Hosted Version**: Access the live site at [https://decodedfaith.github.io/nigeria-mineral-map/](https://decodedfaith.github.io/nigeria-mineral-map/). Filter by "iron ore" to see deposits in Abia and Anambra states.
-- **Local Run**: Launch the app with:
-python main.py
-textOpen your browser to `http://localhost:5000` (or the port shown).
 
-For development, install in editable mode:
-pip install -e .
-text## Project Structure
+### Prerequisites
+- Python 3.8 or higher
+- pip (Python package manager)
+
+### Setup Instructions
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/decodedfaith/nigeria-mineral-map.git
+   cd nigeria-mineral-map
+   ```
+
+2. **Create and activate a virtual environment** (recommended):
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Obtain geospatial data**:
+   - Download Nigeria administrative boundaries (GADM level 1) from [GADM](https://gadm.org/download_country.html)
+   - Place the `.gpkg` file in the `data/` directory as `gadm41_NGA.gpkg`
+   - Alternatively, use any Nigeria state-level shapefile/GeoPackage
+
+## Usage
+
+### Generate the Map
+
+Run the main script to generate the interactive map:
+
+```bash
+python main.py
+```
+
+This will:
+1. Load the Nigeria state boundaries from `data/gadm41_NGA.gpkg`
+2. Merge with the sample license data
+3. Generate choropleth visualization
+4. Save output to `index.html`
+
+### View the Map
+
+Open `index.html` in any modern web browser:
+
+```bash
+# macOS
+open index.html
+
+# Linux
+xdg-open index.html
+
+# Windows
+start index.html
+```
+
+Or deploy to GitHub Pages for public access.
+
+## Project Structure
+
+```
 nigeria-mineral-map/
 ├── src/
-│   ├── init.py
-│   ├── data_loader.py      # Loads NGSA shapefiles and CSV data
-│   ├── data_processor.py   # Cleans and aggregates mineral data
-│   ├── map_builder.py      # Generates Folium maps with markers/clusters
-│   └── ui_enhancer.py      # Adds JS/CSS for interactivity (Cython-optimized)
-├── data/                   # External datasets (e.g., NGSA minerals shapefile)
-├── docs/                   # Additional documentation
-├── main.py                 # Entry point: Orchestrates the app
-├── requirements.txt        # Python dependencies
-├── setup.py                # Packaging config
-├── README.md               # This file
-└── LICENSE                 # MIT License
-text## Data Sources
-- Nigerian Geological Survey Agency (NGSA): [Mineral Resources Map](https://ngsa.gov.ng/) (download shapefiles; add to `/data/`).
-- Avoid committing large files—use `.gitignore` and fetch via script if needed.
+│   ├── __init__.py
+│   ├── data_loader.py       # Loads GADM GeoPackage files
+│   ├── data_processor.py    # Contains sample data and merging logic
+│   ├── map_builder.py       # Generates Folium choropleth map
+│   └── ui_enhancer.py       # Adds JavaScript interactivity
+├── data/
+│   └── gadm41_NGA.gpkg      # Nigeria state boundaries (user-provided)
+├── index.html               # Generated interactive map
+├── main.py                  # Entry point script
+├── requirements.txt         # Python dependencies
+├── LICENSE                  # MIT License
+├── CONTRIBUTING.md          # Contribution guidelines
+└── README.md                # This file
+```
+
+## Roadmap & Future Opportunities
+
+This project is designed to scale and address real-world challenges in Nigeria's solid minerals sector. Planned enhancements include:
+
+### 🎯 Phase 1: Real-Time Data Integration
+- [ ] Connect to [Nigerian Mining Cadastre Portal](https://portal.cadastre.gov.ng/) API
+- [ ] Implement automated data refresh pipeline
+- [ ] Add data validation and quality checks
+- [ ] Display last-updated timestamp on map
+
+### 🌍 Phase 2: Regional Expansion
+- [ ] Extend coverage to West African countries (Ghana, Sierra Leone, etc.)
+- [ ] Pan-African mineral license database integration
+- [ ] Comparative analytics across countries
+
+### 📊 Phase 3: Advanced Analytics
+- [ ] Mineral type filtering (iron ore, coal, limestone, gold, etc.)
+- [ ] Time-series visualization (license trends over years)
+- [ ] Search functionality by state, mineral, or company
+- [ ] Download filtered datasets as CSV/GeoJSON
+- [ ] Mobile-responsive design
+
+### 🔧 Phase 4: Performance & UX
+- [ ] Migrate from embedded GeoJSON to tile-based mapping
+- [ ] Implement dynamic data loading (reduce initial file size)
+- [ ] Add legend and color scale customization
+- [ ] Multi-language support (English, Hausa, Yoruba, Igbo)
+
+### 🤝 Open-Source Collaboration
+We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## Known Issues & Limitations
+
+- **Large File Size**: `index.html` is ~16MB due to embedded Nigeria state GeoJSON. Future versions will use tiled mapping or external JSON files.
+- **Static Data**: Current data is hardcoded and not real-time. API integration is planned.
+- **Desktop-Optimized**: Mobile responsiveness is limited in the current version.
+
+## Data Attribution
+
+- **Geospatial Boundaries**: [GADM](https://gadm.org/) - Database of Global Administrative Areas
+- **License Data**: Sample data inspired by Nigerian Mining Cadastre Office (NMCO) records (Q1 2022 approximation)
+
+> **Disclaimer**: This tool is for informational and educational purposes only. For official mineral licensing data, consult the [Nigerian Mining Cadastre Office](https://www.cadastre.gov.ng/).
 
 ## Contributing
-See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+
+We welcome contributions from developers, geospatial analysts, and mining sector professionals! Please read our [Contributing Guidelines](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md).
+
+### How to Contribute
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/your-feature-name`)
+3. Commit changes with clear messages
+4. Push to your fork and submit a Pull Request
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
-- Built with [GeoPandas](https://geopandas.org/), [Folium](https://python-visualization.github.io/folium/), and Cython.
-- Data courtesy of NGSA.
-- Hosted on [GitHub Pages](https://pages.github.com/). (https://decodedfaith.github.io/nigeria-mineral-map/)
+
+- Built with [GeoPandas](https://geopandas.org/), [Folium](https://python-visualization.github.io/folium/), and [Leaflet.js](https://leafletjs.com/)
+- Nigeria boundary data courtesy of [GADM](https://gadm.org/)
+- Inspired by the need for transparent, accessible mineral resource data in Nigeria
+
+## Contact & Support
+
+- **Project Maintainer**: [@decodedfaith](https://github.com/decodedfaith)
+- **Issues**: [GitHub Issues](https://github.com/decodedfaith/nigeria-mineral-map/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/decodedfaith/nigeria-mineral-map/discussions)
+
+---
+
+**⭐ If you find this project useful, please consider starring the repository!**
