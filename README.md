@@ -122,7 +122,7 @@ nigeria-mineral-map/
 This project is designed to scale and address real-world challenges in Nigeria's solid minerals sector. Planned enhancements include:
 
 ### 🎯 Phase 1: Real-Time Data Integration
-- [ ] Connect to [Nigerian Mining Cadastre Portal](https://portal.cadastre.gov.ng/) API
+- [ ] Connect to [Nigerian Mining Cadastre Portal](https://miningcadastre.gov.ng/) API
 - [ ] Implement automated data refresh pipeline
 - [ ] Add data validation and quality checks
 - [ ] Display last-updated timestamp on map
@@ -159,7 +159,7 @@ We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 - **Geospatial Boundaries**: [GADM](https://gadm.org/) - Database of Global Administrative Areas
 - **License Data**: Sample data inspired by Nigerian Mining Cadastre Office (NMCO) records (Q1 2022 approximation)
 
-> **Disclaimer**: This tool is for informational and educational purposes only. For official mineral licensing data, consult the [Nigerian Mining Cadastre Office](https://www.cadastre.gov.ng/).
+> **Disclaimer**: This tool is for informational and educational purposes only. For official mineral licensing data, consult the [Nigerian Mining Cadastre Office](https://miningcadastre.gov.ng/).
 
 ## Contributing
 
