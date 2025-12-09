@@ -31,19 +31,49 @@ def merge_and_process(gdf: gpd.GeoDataFrame, data_df: pd.DataFrame) -> gpd.GeoDa
         
         # Compute optimized popup HTML
         gdf['popup_html'] = gdf.apply(lambda row: f"""
-        <div style="width: 250px; padding: 10px; font-family: Arial, sans-serif; line-height: 1.5; background: #fff; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-            <h4 style="margin: 0 0 10px; font-size: 16px; color: #333;"><b>{row['NAME_1']}</b></h4>
-            <p style="margin: 5px 0; font-size: 14px;"><strong>Total Valid Licenses:</strong> {int(row['total'])}</p>
-            <table style="width: 100%; border-collapse: collapse; font-size: 12px; border: 1px solid #ddd;">
-                <tr style="background-color: #f9f9f9;">
-                    <th style="padding: 5px; border: 1px solid #ddd;">License Type</th>
-                    <th style="padding: 5px; border: 1px solid #ddd;">Count</th>
-                </tr>
-                <tr><td style="padding: 5px; border: 1px solid #ddd;">SSML (Small Scale Mining)</td><td style="padding: 5px; border: 1px solid #ddd;">{int(row['ssml'])}</td></tr>
-                <tr><td style="padding: 5px; border: 1px solid #ddd;">ML (Mining Lease)</td><td style="padding: 5px; border: 1px solid #ddd;">{int(row['ml'])}</td></tr>
-                <tr><td style="padding: 5px; border: 1px solid #ddd;">QL (Quarry License)</td><td style="padding: 5px; border: 1px solid #ddd;">{int(row['ql'])}</td></tr>
-            </table>
-            <p style="margin: 10px 0 0; font-size: 10px; color: #666; font-style: italic;">Data: Approximate Q1 2022 (NMCO). For real-time, integrate API.</p>
+        <div style="
+            min-width: 260px; 
+            font-family: 'Inter', sans-serif; 
+            color: #eee;
+        ">
+            <div style="
+                border-bottom: 1px solid rgba(255,255,255,0.1); 
+                padding-bottom: 10px; 
+                margin-bottom: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            ">
+                <h4 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: 0.5px;">{row['NAME_1']}</h4>
+                <span style="
+                    background: rgba(255,255,255,0.1); 
+                    padding: 2px 8px; 
+                    border-radius: 10px; 
+                    font-size: 11px; 
+                    color: #aaa;
+                ">State</span>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <p style="margin: 0; font-size: 12px; color: #aaa; text-transform: uppercase; letter-spacing: 1px;">Total Valid Licenses</p>
+                <p style="margin: 2px 0 0 0; font-size: 24px; font-weight: 700; color: #fff;">{int(row['total'])}</p>
+            </div>
+            
+            <div style="background: rgba(255,255,255,0.05); border-radius: 8px; padding: 10px; border: 1px solid rgba(255,255,255,0.05);">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+                    <span style="color: #ccc;">Small Scale Mining</span>
+                    <span style="font-weight: 600; color: #fff;">{int(row['ssml'])}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+                    <span style="color: #ccc;">Mining Lease</span>
+                    <span style="font-weight: 600; color: #fff;">{int(row['ml'])}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                    <span style="color: #ccc;">Quarry License</span>
+                    <span style="font-weight: 600; color: #fff;">{int(row['ql'])}</span>
+                </div>
+            </div>
+            <p style="margin: 15px 0 0; font-size: 10px; color: #666; text-align: right;">Data: NMCO (Q1 2022)</p>
         </div>
         """, axis=1)
         return gdf

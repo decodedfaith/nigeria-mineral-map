@@ -6,8 +6,9 @@ def build_base_map(center: list = [9.0820, 8.6753], zoom: int = 6) -> folium.Map
     return folium.Map(
         location=center,
         zoom_start=zoom,
-        tiles='OpenStreetMap',
-        control_scale=True
+        tiles='CartoDB dark_matter',
+        control_scale=True,
+        prefer_canvas=True
     )
 
 def add_choropleth_layer(m: folium.Map, gdf) -> folium.Map:
@@ -39,7 +40,7 @@ def add_geojson_layer(m: folium.Map, gdf) -> folium.Map:
             fields=['NAME_1', 'total'],
             aliases=['State:', 'Total Valid Licenses:'],
             localize=True, sticky=True, labels=True,
-            style="font-size: 12px; padding: 5px; background-color: #fff; border-radius: 3px;"
+            style="font-size: 14px; padding: 8px; background-color: rgba(0,0,0,0.8); color: white; border-radius: 4px; border: 1px solid rgba(255,255,255,0.2);"
         ),
         popup=folium.GeoJsonPopup(
             fields=['popup_html'], aliases=[''],
@@ -57,7 +58,7 @@ def add_labels(m: folium.Map, gdf) -> folium.Map:
         folium.Marker(
             location=[centroid.y, centroid.x],
             icon=folium.features.DivIcon(
-                html=f'<div style="font-size: 10px; font-weight: bold; color: black; text-align: center;background: rgba(255, 255, 255, 0.0); padding: 2px; border-radius: 3px;">{int(row["total"])}</div>',
+                html=f'<div style="font-size: 11px; font-weight: bold; color: #e0e0e0; text-shadow: 0 0 3px black; text-align: center; padding: 2px;">{int(row["total"])}</div>',
                 icon_size=(30, 30)
             )
         ).add_to(m)
