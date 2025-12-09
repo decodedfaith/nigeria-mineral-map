@@ -55,8 +55,7 @@ window.addEventListener('load', function() {
                                 if (selectedLayer !== e.target) {
                                     resetHighlight(e);
                                 }
-                            },
-                            click: highlightFeature
+                            }
                         });
                     });
                 }
